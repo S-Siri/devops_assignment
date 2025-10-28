@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hangmanapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hangmanapp
+  template:
+    metadata:
+      labels:
+        app: hangmanapp
+    spec:
+      containers:
+        - name: hangmanapp
+          image: siri2409/kubedemos:hangmanapp
+          ports:
+            - containerPort: 5000
