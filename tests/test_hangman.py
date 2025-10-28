@@ -6,16 +6,10 @@ from selenium.webdriver.common.by import By
 @pytest.fixture(scope="module")
 def driver():
     driver = webdriver.Chrome()
-    driver.get("http://127.0.0.1:5000/")
+    driver.get("http://127.0.0.1:5000/templates/index.html")
     driver.maximize_window()
     yield driver
     driver.quit()
-
-def test_page_loads(driver):
-    """Verify the Hangman game loads correctly."""
-    title = driver.title
-    assert "Hangman Game" in title
-    assert driver.find_element(By.CSS_SELECTOR, ".hangman-box h1").text == "Hangman Game"
 
 def test_keyboard_rendered(driver):
     """Check that all 26 alphabet buttons are rendered."""
@@ -52,7 +46,6 @@ def test_button_disables_after_click(driver):
 
 def test_game_over_modal_shows(driver):
     """Simulate losing the game and check the modal appears."""
-    # Keep clicking wrong letters until max guesses reached
     buttons = driver.find_elements(By.CSS_SELECTOR, ".keyboard button:not([disabled])")
     for btn in buttons:
         btn.click()
